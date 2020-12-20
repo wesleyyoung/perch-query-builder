@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "target": "es2015",
+        "module": "commonjs",
+        "sourceRoot": "src",
+        "outDir": "dist",
+        "sourceMap": true,
+        "lib": [
+            "es2017",
+            "es7",
+            "es6",
+            "dom"
+        ],
+        "declaration": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "allowSyntheticDefaultImports": true
+    }
+}
