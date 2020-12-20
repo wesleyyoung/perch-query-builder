@@ -1,20 +1,28 @@
 {
-  "name": "nestjs-relation-elation",
-  "version": "1.0.0",
-  "description": "Dynamically build TypeORM queries based on GraphQL queries for NestJS and TypeORM",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "tsc && copyfiles -u 1 \"src/**/*.d.ts\" dist"
-  },
-  "author": "Wesley Young",
-  "license": "ISC",
-  "devDependencies": {
-    "copyfiles": "^2.4.1",
-    "typescript": "^4.1.3"
-  },
-  "dependencies": {
-    "graphql": "^15.4.0",
-    "typeorm": "^0.2.29"
-  }
+    "name": "nestjs-relation-elation",
+    "version": "1.0.2",
+    "description": "Dynamically build TypeORM queries based on GraphQL queries for NestJS and TypeORM",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "tsc && copyfiles -u 1 \"src/**/*.d.ts\" dist",
+        "prepare": "npm run build"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/wesleyyoung/nestjs-relation-elation.git"
+    },
+    "files": [
+        "dist"
+    ],
+    "author": "Wesley Young",
+    "license": "ISC",
+    "devDependencies": {
+        "copyfiles": "^2.4.1",
+        "typescript": "^4.1.3"
+    },
+    "dependencies": {
+        "graphql": "^15.4.0",
+        "typeorm": "^0.2.29"
+    }
 }
