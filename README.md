@@ -103,7 +103,7 @@ Much of the credit goes to [david-eos](https://github.com/david-eos) for writing
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the MIT License.
 
 ## Contact
 
