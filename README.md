@@ -1,7 +1,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/wesleyyoung/perch-query-builder">
-    <img src="https://github.com/wesleyyoung/perch-query-builder/imgs/perch.png" alt="Logo" width="80" height="80">
+    <img src="https://github.com/wesleyyoung/perch-query-builder/blob/main/imgs/perch.png" alt="Logo" width="80" height="80">
   </a>
 </p>
 <h3 align="center">Perch Query Builder</h3>
@@ -41,7 +41,7 @@
 ## About The Project
 
 In order to harness the true potential of NestJS, GraphQL, and TypeORM, I needed a way to dynamically fetch child relationships based on the GraphQL query coming in, without having to write a resolver specific to each entity and limited in depth. I went searching for a solution and found [this thread](https://github.com/MichalLytek/type-graphql/issues/405). 
-A solution was posted by [david-eos](https://github.com/david-eos), but not functional enough to integrate easily into a proper NestJS + TypeORM + @nestjs/graphql project. I re-worked his solution into a portable and lightweight package generalizable enough to be used by anyone.
+A solution had been posted by [david-eos](https://github.com/david-eos), but it wasn't functional enough to integrate easily into a proper NestJS + TypeORM + @nestjs/graphql project. I re-worked his solution into a portable and lightweight package generalizable enough to be used by anyone.
 
 ### Built With
 
