@@ -32,7 +32,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li><a href="#use-inside-your-resolver">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -66,7 +66,7 @@ This plugin is light-weight and easy to install and use.
 npm i --save perch-query-builder@latest
 ```
 
-## Use inside your resolver
+### Use inside your resolver
 
 ```TS
 @Query(of => [Book], {
