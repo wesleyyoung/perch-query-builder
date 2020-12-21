@@ -3,12 +3,12 @@ import {RelationMetadata} from "typeorm/metadata/RelationMetadata";
 import {EntityMetadata, SelectQueryBuilder} from "typeorm";
 
 /**
- * @description Builds TypeORM query with the query builder recursively, joining every requested relation,
- * selection every asked attribute, adding query options.
+ * @description Builds a TypeORM query with the queryBuilder recursively, joining every requested relation,
+ * selecting every asked attribute, and adding query options.
  * @param tree GraphQLQueryTree
  * @param qb SelectQueryBuilder
  * @param alias Entity alias
- * @param metadata Entity metadata
+ * @param metadata EntityMetadata
  */
 export function buildQueryRecursively<T>(
     tree: GraphQLQueryTree<T>,
@@ -45,8 +45,8 @@ export function buildQueryRecursively<T>(
 
     // For each asked relation
     tree.fields
-        .filter((field) => field.isRelation())
-        .forEach((relationTree) => {
+        .filter((field: GraphQLQueryTree<T>) => field.isRelation())
+        .forEach((relationTree: GraphQLQueryTree<T>) => {
 
             const relation: RelationMetadata = metadata.findRelationWithPropertyPath(relationTree.name);
 
@@ -55,6 +55,7 @@ export function buildQueryRecursively<T>(
                 const relationAlias = qb.connection.namingStrategy.eagerJoinRelationAlias(alias, relation.propertyPath);
 
                 qb.leftJoinAndSelect(alias + "." + relation.propertyPath, relationAlias);
+
                 buildQueryRecursively(relationTree, qb, relationAlias, relation.inverseEntityMetadata);
             }
         });

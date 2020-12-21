@@ -1,11 +1,11 @@
+import {QueryOrder} from "../types";
+
 /**
  * @interface DynamicQueryOptions
- * @description query options interface
+ * @description DynamicQueryOptions interface
  */
-export interface DynamicQueryOptions<T = any> {
-    // skip?: number;
-    // take?: number;
+export interface DynamicQueryOptions<T> {
     order?: {
-        [P in keyof T]?: "ASC" | "DESC" | 1 | -1;
+        [P in keyof T]?: QueryOrder;
     };
 }

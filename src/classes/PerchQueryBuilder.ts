@@ -3,11 +3,11 @@ import {buildQueryRecursively, GraphQLQueryTree} from "../";
 import {GraphQLResolveInfo} from "graphql";
 
 /**
- * @class ElatedRepository
+ * @class PerchQueryBuilder
  * @description This class helps to resolve any GraphQL query based on the query tree constructed using GraphQLResolveInfo.
- * It can find any type of entity, join every requested relation and select asked attributes.
+ * It will attempt to join every relation and select all attributes present in the GraphQL query that map to a valid property on the given entity type.
  */
-export class ElatedRepository {
+export class PerchQueryBuilder {
 
     /**
      * Generates TypeORM queryBuilder based on GraphQLQueryTree args, relations & options
@@ -41,7 +41,7 @@ export class ElatedRepository {
         repository: Repository<T>,
         info: GraphQLResolveInfo,
     ): Promise<T[]> {
-        return ElatedRepository.generateQueryBuilder<T>(repository, info).getMany();
+        return PerchQueryBuilder.generateQueryBuilder<T>(repository, info).getMany();
     }
 
     /**
@@ -53,6 +53,6 @@ export class ElatedRepository {
         repository: Repository<T>,
         info: GraphQLResolveInfo,
     ): Promise<T | undefined> {
-        return ElatedRepository.generateQueryBuilder<T>(repository, info).getOne();
+        return PerchQueryBuilder.generateQueryBuilder<T>(repository, info).getOne();
     }
 }

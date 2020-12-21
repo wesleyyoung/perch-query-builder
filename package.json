@@ -1,6 +1,6 @@
 {
-    "name": "nestjs-relation-elation",
-    "version": "1.1.3",
+    "name": "perch-query-builder",
+    "version": "1.0.0",
     "description": "Dynamically build TypeORM queries based on GraphQL queries for NestJS and TypeORM",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -10,7 +10,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/wesleyyoung/nestjs-relation-elation.git"
+        "url": "git+https://github.com/wesleyyoung/perch-query-builder.git"
     },
     "files": [
         "dist"

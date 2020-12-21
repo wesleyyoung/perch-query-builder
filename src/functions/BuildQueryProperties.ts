@@ -2,7 +2,7 @@ import {GraphQLObjectType} from "graphql";
 import {GraphQLQueryTreeProperties, buildQueryOptions} from "../";
 
 /**
- * @description This function takes query args and differs between args and options
+ * @description This function takes the query arguments and splits them up into arguments and options
  * @param type node type
  * @param queryArgs Args of graphql query
  */

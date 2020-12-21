@@ -1,26 +1,27 @@
-import {DynamicQueryOptions} from "../";
+import {DynamicQueryOptions, ORDER, QueryOrder} from "../";
 
 /**
- * Builds Dynamic Query Options
- * @param queryOptions graph ql options
+ * @description Builds DynamicQueryOptions
+ * @param queryOptions graphql options
  */
 export function buildQueryOptions<T>(queryOptions: { [key: string]: any } = {}): DynamicQueryOptions<T> {
 
     const options: DynamicQueryOptions<T> = {};
-    const order: { [P in keyof T]?: "ASC" | "DESC" | 1 | -1 } = {};
+    const order: { [P in keyof T]?: QueryOrder} = {};
 
-    Object.entries(queryOptions).forEach(([op, value]) => {
-        switch (op) {
-            case "orderDescBy":
-                order[value] = "DESC";
-                break;
-            case "orderAscBy":
-                order[value] = "ASC";
-                break;
-            default:
-                break;
-        }
-    });
+    Object.entries(queryOptions)
+        .forEach(([opt, value]) => {
+            switch (opt) {
+                case "orderDescBy":
+                    order[value] = ORDER.DESCEND;
+                    break;
+                case "orderAscBy":
+                    order[value] = ORDER.ASCEND;
+                    break;
+                default:
+                    break;
+            }
+        });
 
     options.order = order;
 

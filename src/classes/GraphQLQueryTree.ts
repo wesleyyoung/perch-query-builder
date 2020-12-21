@@ -4,8 +4,8 @@ import {buildQueryTree, GraphQLQueryTreeProperties} from "../";
 
 /**
  * @class GraphQLQueryTree
- * @description Represents GraphQL query with a tree, each node with its arguments and options.
- * Each node is related to its fields (children)
+ * @description Represents GraphQL query with an object tree, each node has its own arguments and options.
+ * Each node is related to the next as its child/parent relationship.
  * If a field does not have children, then it is a simple field (Int, String)
  */
 export class GraphQLQueryTree<T> {

@@ -14,13 +14,16 @@ export function buildTree<T>(
     info: GraphQLResolveInfo,
 ): void {
 
-    const childFields: Array<GraphQLQueryTree<any>> = []; // Initialize child trees (fields)
-    const fieldNodes = selectionsToFields(selections, info); // Transform SelectionNodes to FieldNodes
+    // Initialize child trees (fields)
+    const childFields: Array<GraphQLQueryTree<any>> = [];
+    // Transform SelectionNodes to FieldNodes
+    const fieldNodes = selectionsToFields(selections, info);
 
     // For each field node
     fieldNodes.forEach((field) => {
 
         const name = field.name.value;
+
         if (name === "__typename") {
             return;
         }
@@ -28,7 +31,6 @@ export function buildTree<T>(
         const fieldDef = parent.properties.type.getFields()[name];
         const queryArgs = getArgumentValues(fieldDef, field, info.variableValues);
         const type = getType(fieldDef.type);
-
         const properties = buildQueryProperties(type, queryArgs);
         const child = new GraphQLQueryTree(name, properties);
 

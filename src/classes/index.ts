@@ -1,3 +1,3 @@
-export * from './ElatedRepository';
+export * from './PerchQueryBuilder';
 export * from './GraphQLQueryTree';
 export * from './GraphQLQueryTreeProperties';
