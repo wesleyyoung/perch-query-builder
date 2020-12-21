@@ -35,8 +35,6 @@ export function buildTree<T>(
         const properties = buildQueryProperties(type, queryArgs);
         const child = new GraphQLQueryTree(name, properties);
 
-        console.log(child);
-
         childFields.push(child);
 
         if (field.selectionSet) {

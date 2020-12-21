@@ -3,11 +3,11 @@ import {Repository, SelectQueryBuilder} from "typeorm";
 import {buildQueryRecursively} from "../";
 
 /**
- * @class DynamicRepository
+ * @class ElatedRepository
  * @description This class helps to resolve any GraphQL query based on the query tree constructed using GraphQLResolveInfo.
  * It can find any type of entity, join every requested relation and select asked attributes.
  */
-export class DynamicRepository {
+export class ElatedRepository {
 
     /**
      * Generates TypeORM queryBuilder based on GraphQLQueryTree args, relations & options
@@ -40,7 +40,7 @@ export class DynamicRepository {
         repo: Repository<T>,
         tree: GraphQLQueryTree<T>
     ): Promise<T[]> {
-        return DynamicRepository.generateQueryBuilder<T>(repo, tree).getMany();
+        return ElatedRepository.generateQueryBuilder<T>(repo, tree).getMany();
     }
 
     /**
@@ -52,6 +52,6 @@ export class DynamicRepository {
         repo: Repository<T>,
         tree: GraphQLQueryTree<T>
     ): Promise<T | undefined> {
-        return DynamicRepository.generateQueryBuilder<T>(repo, tree).getOne();
+        return ElatedRepository.generateQueryBuilder<T>(repo, tree).getOne();
     }
 }

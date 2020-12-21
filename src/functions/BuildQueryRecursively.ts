@@ -14,7 +14,8 @@ export function buildQueryRecursively<T>(
     tree: GraphQLQueryTree<T>,
     qb: SelectQueryBuilder<T>,
     alias: string,
-    metadata: EntityMetadata) {
+    metadata: EntityMetadata
+) {
 
     // Firstly, we list all selected fields at this level of the query tree
     const selectedFields = tree.fields.filter((field) => !field.isRelation()).map((field) => alias + "." + field.name);
