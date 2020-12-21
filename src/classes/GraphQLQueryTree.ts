@@ -1,6 +1,6 @@
 import {GraphQLResolveInfo} from "graphql";
 import {GraphQLQueryTreeProperties} from "./GraphQLQueryTreeProperties";
-import {buildQueryTree} from "../functions";
+import {buildQueryTree} from "../";
 
 
 /**

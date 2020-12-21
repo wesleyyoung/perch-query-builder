@@ -1,6 +1,6 @@
 import {GraphQLQueryTree} from "./GraphQLQueryTree";
 import {Repository, SelectQueryBuilder} from "typeorm";
-import {buildQueryRecursively} from "../functions";
+import {buildQueryRecursively} from "../";
 
 /**
  * @class DynamicRepository

@@ -1,6 +1,6 @@
 import {GraphQLObjectType} from "graphql";
-import {GraphQLQueryTreeProperties} from "../classes";
-import {buildQueryOptions} from "./BuildQueryOptions";
+import {GraphQLQueryTreeProperties} from "../";
+import {buildQueryOptions} from "./";
 
 /**
  * @description This function takes query args and differs between args and options

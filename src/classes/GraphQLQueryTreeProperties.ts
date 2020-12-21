@@ -1,5 +1,5 @@
 import {GraphQLObjectType} from "graphql";
-import {DynamicQueryOptions} from "../interfaces";
+import {DynamicQueryOptions} from "../";
 
 /**
  * @class GraphQLQueryTreeProperties

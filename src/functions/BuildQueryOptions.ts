@@ -1,4 +1,4 @@
-import {DynamicQueryOptions} from "../interfaces";
+import {DynamicQueryOptions} from "../";
 
 /**
  * Builds Dynamic Query Options
