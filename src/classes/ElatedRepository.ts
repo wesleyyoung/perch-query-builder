@@ -1,7 +1,6 @@
 import {GraphQLQueryTree} from "./GraphQLQueryTree";
 import {Repository, SelectQueryBuilder} from "typeorm";
 import {buildQueryRecursively} from "../";
-import {EntityMetadata} from "typeorm/metadata/EntityMetadata";
 import {GraphQLResolveInfo} from "graphql";
 
 /**
