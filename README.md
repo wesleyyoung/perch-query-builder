@@ -13,7 +13,6 @@
     ·
     <a href="https://github.com/wesleyyoung/perch-query-builder/issues">Request Feature</a>
 </p>
-
 <details open="open">
   <summary>Table of Contents</summary>
   <ol>
@@ -91,13 +90,14 @@ Contributions are what make the open source community such an amazing place to b
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request.
 
+## Acknowledgements
 
-<!-- LICENSE -->
+Much of the credit goes to [david-eos](https://github.com/david-eos) for writing the core functionality.
+
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
-<!-- CONTACT -->
 ## Contact
 
 Wesley Young - [@FullstackAttack](https://twitter.com/FullstackAttack) - wesley.young.portfolio@gmail.com
