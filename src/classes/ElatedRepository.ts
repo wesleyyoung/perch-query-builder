@@ -1,6 +1,8 @@
 import {GraphQLQueryTree} from "./GraphQLQueryTree";
 import {Repository, SelectQueryBuilder} from "typeorm";
 import {buildQueryRecursively} from "../";
+import {EntityMetadata} from "typeorm/metadata/EntityMetadata";
+import {GraphQLResolveInfo} from "graphql";
 
 /**
  * @class ElatedRepository
@@ -11,20 +13,19 @@ export class ElatedRepository {
 
     /**
      * Generates TypeORM queryBuilder based on GraphQLQueryTree args, relations & options
-     * @param repo
-     * @param tree GraphQLQueryTree
      * @param qb
+     * @param metadata
+     * @param info
      */
     public static generateQueryBuilder<T>(
-        repo: Repository<T>,
-        tree: GraphQLQueryTree<T>,
-        qb?: SelectQueryBuilder<T>
+        qb: SelectQueryBuilder<T>,
+        metadata: EntityMetadata,
+        info: GraphQLResolveInfo,
     ): SelectQueryBuilder<T> {
 
-        const metadata = repo.metadata;
-        qb = qb || repo.createQueryBuilder();
+        const tree = GraphQLQueryTree.createTree(info);
 
-        qb.select([]); // Clear any selected attributes in the query builder
+        qb.select([]);
 
         buildQueryRecursively<T>(tree, qb, qb.alias, metadata);
 
@@ -33,25 +34,29 @@ export class ElatedRepository {
 
     /**
      * Finds multiple instances of entity
-     * @param repo
-     * @param tree GraphQLQueryTree
+     * @param qb
+     * @param metadata
+     * @param info
      */
     public static async find<T>(
-        repo: Repository<T>,
-        tree: GraphQLQueryTree<T>
+        qb: SelectQueryBuilder<T>,
+        metadata: EntityMetadata,
+        info: GraphQLResolveInfo,
     ): Promise<T[]> {
-        return ElatedRepository.generateQueryBuilder<T>(repo, tree).getMany();
+        return ElatedRepository.generateQueryBuilder<T>(qb, metadata, info).getMany();
     }
 
     /**
      * Finds one instance of entity
-     * @param repo
-     * @param tree GraphQLQueryTree
+     * @param qb
+     * @param metadata
+     * @param info
      */
     public static async findOne<T>(
-        repo: Repository<T>,
-        tree: GraphQLQueryTree<T>
+        qb: SelectQueryBuilder<T>,
+        metadata: EntityMetadata,
+        info: GraphQLResolveInfo,
     ): Promise<T | undefined> {
-        return ElatedRepository.generateQueryBuilder<T>(repo, tree).getOne();
+        return ElatedRepository.generateQueryBuilder<T>(qb, metadata, info).getOne();
     }
 }
