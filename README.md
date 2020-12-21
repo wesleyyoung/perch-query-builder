@@ -42,6 +42,10 @@
 In order to harness the true potential of NestJS, GraphQL, and TypeORM, I needed a way to dynamically fetch child relationships based on the GraphQL query coming in, without having to write a resolver specific to each entity and limited in depth. I went searching for a solution and found [this thread](https://github.com/MichalLytek/type-graphql/issues/405). 
 A solution had been posted by [david-eos](https://github.com/david-eos), but it wasn't functional enough to integrate easily into a proper NestJS + TypeORM + @nestjs/graphql project. I re-worked his solution into a portable and lightweight package generalizable enough to be used by anyone.
 
+## Notes
+
+Currently, this implementation does not have support for arguments, meaning as of v1.0.1 this merely returns all items in your collection and normalizes the relationships within the query 
+
 ### Built With
 
 * [TypeScript](https://www.typescriptlang.org/)
@@ -61,17 +65,17 @@ npm i --save perch-query-builder@latest
 ## Use inside your resolver
 
 ```TS
-@Query(of => [classRef], {
-    name: `findAll${classRef.name}`,
-    description: `Generic Collection Query For ${classRef.name}`,
+@Query(of => [Book], {
+    name: `findAllBooks`,
+    description: `Generic Collection Query For Books`,
     nullable: true,
 })
-protected async getAll(
+protected async getAllBooks(
     @Context() ctx,
     @Info() info: GraphQLResolveInfo,
-): Promise<T[]> {
+): Promise<Book[]> {
     // Simply pass your entity's repository, and the GraphQLResolve Info
-    return await PerchQueryBuilder.find<T>(this.repository, info);
+    return await PerchQueryBuilder.find<Book>(this.bookRepository, info);
 }
 ```
 
