@@ -4,8 +4,8 @@
     <img src="https://github.com/wesleyyoung/perch-query-builder/imgs/perch.png" alt="Logo" width="80" height="80">
   </a>
 </p>
-<h3 style="text-align: center">Perch Query Builder</h3>
-<p style="text-align: center">
+<h3 align="center">Perch Query Builder</h3>
+<p align="center">
     Dynamically build TypeORM queries based on GraphQL queries for NestJS and TypeORM
     <br />
     <br />
