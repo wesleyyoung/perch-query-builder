@@ -51,11 +51,6 @@ A solution had been posted by [david-eos](https://github.com/david-eos), but it 
 * [GraphQL](https://www.npmjs.com/package/graphql)
 * [TypeORM](https://typeorm.io/#/)
 
-## Notes
-
-Currently, this implementation does not have support for arguments, meaning as of v1.0.3 this merely returns all items in your collection and normalizes the relationships within the query 
-
-
 ## Getting Started
 
 This plugin is light-weight and easy to install and use.
@@ -69,17 +64,34 @@ npm i --save perch-query-builder@latest
 ### Use inside your resolver
 
 ```TS
-@Query(of => [Book], {
-    name: `findAllBooks`,
-    description: `Generic Collection Query For Books`,
-    nullable: true,
-})
-async getAllBooks(
-    @Context() ctx,
-    @Info() info: GraphQLResolveInfo,
-): Promise<Book[]> {
-    // Simply pass your entity's repository, and the GraphQLResolve Info
-    return await PerchQueryBuilder.find<Book>(this.bookRepository, info);
+import {Args, Context, Info, Query, Resolver} from '@nestjs/graphql';
+import {Repository} from 'typeorm';
+import {InjectRepository} from "@nestjs/typeorm";
+import {PerchQueryBuilder} from 'perch-query-builder';
+import {BookArgs} from '../args';
+import {Book} from '../entities';
+
+@Resolver(of => Book)
+export class BookResolver {
+
+    constructor(
+        @InjectRepository(Book),
+        private bookRepository: Repository<Book>,
+    ) {}
+
+    @Query(of => [Book], {
+        name: `Book`,
+        description: `Generic Collection Query For Books`,
+        nullable: true,
+    })
+    async queryBooks(
+        @Context() ctx,
+        @Args() args: BookArgs,
+        @Info() info: GraphQLResolveInfo,
+    ): Promise<Book[]> {
+        // Simply pass your entity's repository, and the GraphQLResolve Info
+        return await PerchQueryBuilder.find<Book>(this.bookRepository, info);
+    }
 }
 ```
 

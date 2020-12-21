@@ -25,7 +25,7 @@ export function buildQueryRecursively<T>(
     // Secondly, we list all fields used in arguments
     const argFields = Object
         .keys(tree.properties.args)
-        .map((arg) => alias + "." + arg);
+        .map((arg: string) => alias + "." + arg);
 
     // We select all of above
     qb.addSelect(argFields);
