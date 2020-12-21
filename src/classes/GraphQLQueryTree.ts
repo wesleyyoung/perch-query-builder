@@ -13,7 +13,7 @@ export class GraphQLQueryTree<T> {
     constructor(
         public name: string,
         public properties: GraphQLQueryTreeProperties<T> = null,
-        public fields: Array<GraphQLQueryTree<any>> = []
+        public fields: Array<GraphQLQueryTree<T>> = []
     ) {}
 
     /**
@@ -28,7 +28,7 @@ export class GraphQLQueryTree<T> {
      * @description Sets the node child trees
      * @param fields childFields
      */
-    public setFields(fields: Array<GraphQLQueryTree<any>>): void {
+    public setFields(fields: Array<GraphQLQueryTree<T>>): void {
         this.fields = fields;
     }
 
@@ -45,8 +45,8 @@ export class GraphQLQueryTree<T> {
      *
      * @param name fieldName
      */
-    public getField(name: string): GraphQLQueryTree<any> {
-        return this.fields.find((field: GraphQLQueryTree<any>) => field.name === name);
+    public getField(name: string): GraphQLQueryTree<T> {
+        return this.fields.find((field: GraphQLQueryTree<T>) => field.name === name);
     }
 
     /**
@@ -66,7 +66,7 @@ export class GraphQLQueryTree<T> {
         obj["__options"] = this.properties.options;
         obj["__type"] = this.properties.type.name;
 
-        this.fields.forEach((field) => {
+        this.fields.forEach((field: GraphQLQueryTree<T>) => {
             obj[field.name] = field.toObject();
         });
 

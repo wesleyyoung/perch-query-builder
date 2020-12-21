@@ -1,9 +1,6 @@
 import {FieldNode, GraphQLResolveInfo, SelectionNode} from "graphql";
 import {getArgumentValues} from "graphql/execution/values";
-import {GraphQLQueryTree} from "../";
-import {selectionsToFields} from "./";
-import {getType} from "./";
-import {buildQueryProperties} from "./";
+import {GraphQLQueryTree, selectionsToFields, getType, buildQueryProperties} from "../";
 
 /**
  * @description This recursive function builds the entire tree

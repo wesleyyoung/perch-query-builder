@@ -1,6 +1,5 @@
-import {GraphQLQueryTree} from "./GraphQLQueryTree";
 import {Repository, SelectQueryBuilder} from "typeorm";
-import {buildQueryRecursively} from "../";
+import {buildQueryRecursively, GraphQLQueryTree} from "../";
 import {GraphQLResolveInfo} from "graphql";
 
 /**

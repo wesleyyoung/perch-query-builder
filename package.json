@@ -1,6 +1,6 @@
 {
     "name": "nestjs-relation-elation",
-    "version": "1.1.2",
+    "version": "1.1.3",
     "description": "Dynamically build TypeORM queries based on GraphQL queries for NestJS and TypeORM",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",

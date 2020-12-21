@@ -1,9 +1,6 @@
 import {GraphQLResolveInfo} from "graphql";
-import {getType} from "./GetType";
+import {getType, buildTree, GraphQLQueryTree, buildQueryProperties} from "../";
 import {getArgumentValues} from "graphql/execution/values";
-import {buildQueryProperties} from "./BuildQueryProperties";
-import {buildTree} from "./BuildTree";
-import {GraphQLQueryTree} from "../";
 
 /**
  * @description This function takes GraphQLResolveInfo and starts to build the query tree

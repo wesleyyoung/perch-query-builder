@@ -1,4 +1,4 @@
-import {GraphQLQueryTree} from "../classes";
+import {GraphQLQueryTree} from "../";
 import {RelationMetadata} from "typeorm/metadata/RelationMetadata";
 import {EntityMetadata, SelectQueryBuilder} from "typeorm";
 
@@ -18,36 +18,44 @@ export function buildQueryRecursively<T>(
 ) {
 
     // Firstly, we list all selected fields at this level of the query tree
-    const selectedFields = tree.fields.filter((field) => !field.isRelation()).map((field) => alias + "." + field.name);
+    const selectedFields = tree.fields
+        .filter((field: GraphQLQueryTree<T>) => !field.isRelation())
+        .map((field: GraphQLQueryTree<T>) => alias + "." + field.name);
 
     // Secondly, we list all fields used in arguments
-    const argFields = Object.keys(tree.properties.args).map((arg) => alias + "." + arg);
+    const argFields = Object
+        .keys(tree.properties.args)
+        .map((arg) => alias + "." + arg);
 
     // We select all of above
     qb.addSelect(argFields);
     qb.addSelect(selectedFields);
 
     // We add order options
-    Object.keys(tree.properties.options.order).forEach((key: string) => {
-        qb.addOrderBy(alias + "." + key, tree.properties.options.order[key]);
-    });
+    Object.keys(tree.properties.options.order)
+        .forEach((key: string) => {
+            qb.addOrderBy(alias + "." + key, tree.properties.options.order[key]);
+        });
 
     // We add args filters
-    Object.keys(tree.properties.args).forEach((key: string) => {
-        qb.andWhere(alias + "." + key + " = :" + key, {[`${key}`]: tree.properties.args[key]});
-    });
+    Object.keys(tree.properties.args)
+        .forEach((key: string) => {
+            qb.andWhere(alias + "." + key + " = :" + key, {[`${key}`]: tree.properties.args[key]});
+        });
 
     // For each asked relation
-    tree.fields.filter((field) => field.isRelation()).forEach((relationTree) => {
+    tree.fields
+        .filter((field) => field.isRelation())
+        .forEach((relationTree) => {
 
-        const relation: RelationMetadata = metadata.findRelationWithPropertyPath(relationTree.name);
+            const relation: RelationMetadata = metadata.findRelationWithPropertyPath(relationTree.name);
 
-        // If the relation query tree is asking for exists, we join it recursively
-        if (relation) {
-            const relationAlias = qb.connection.namingStrategy.eagerJoinRelationAlias(alias, relation.propertyPath);
+            // If the relation query tree is asking for exists, we join it recursively
+            if (relation) {
+                const relationAlias = qb.connection.namingStrategy.eagerJoinRelationAlias(alias, relation.propertyPath);
 
-            qb.leftJoinAndSelect(alias + "." + relation.propertyPath, relationAlias);
-            buildQueryRecursively(relationTree, qb, relationAlias, relation.inverseEntityMetadata);
-        }
-    });
+                qb.leftJoinAndSelect(alias + "." + relation.propertyPath, relationAlias);
+                buildQueryRecursively(relationTree, qb, relationAlias, relation.inverseEntityMetadata);
+            }
+        });
 }

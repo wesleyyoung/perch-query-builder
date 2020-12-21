@@ -1,6 +1,5 @@
 import {GraphQLObjectType} from "graphql";
-import {GraphQLQueryTreeProperties} from "../";
-import {buildQueryOptions} from "./";
+import {GraphQLQueryTreeProperties, buildQueryOptions} from "../";
 
 /**
  * @description This function takes query args and differs between args and options
@@ -16,7 +15,7 @@ export function buildQueryProperties<T>(
     const queryOptions: { [key: string]: any } = {};
 
     if (type.getFields && queryArgs) {
-        Object.keys(queryArgs).forEach((key) => {
+        Object.keys(queryArgs).forEach((key: string) => {
             if (Object.keys(type.getFields()).includes(key)) {
                 args[key] = queryArgs[key];
             } else {
