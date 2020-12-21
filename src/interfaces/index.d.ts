@@ -1,1 +1,1 @@
-export * from './DynamicQueryOptions';
+export * from './index';
