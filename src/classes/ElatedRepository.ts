@@ -13,50 +13,48 @@ export class ElatedRepository {
 
     /**
      * Generates TypeORM queryBuilder based on GraphQLQueryTree args, relations & options
+     * @param repository
      * @param qb
-     * @param metadata
      * @param info
      */
     public static generateQueryBuilder<T>(
-        qb: SelectQueryBuilder<T>,
-        metadata: EntityMetadata,
+        repository: Repository<T>,
         info: GraphQLResolveInfo,
+        qb?: SelectQueryBuilder<T>,
     ): SelectQueryBuilder<T> {
 
         const tree = GraphQLQueryTree.createTree(info);
 
+        qb = qb || repository.createQueryBuilder();
+
         qb.select([]);
 
-        buildQueryRecursively<T>(tree, qb, qb.alias, metadata);
+        buildQueryRecursively<T>(tree, qb, qb.alias, repository.metadata);
 
         return qb;
     }
 
     /**
      * Finds multiple instances of entity
-     * @param qb
-     * @param metadata
+     * @param repository
      * @param info
      */
     public static async find<T>(
-        qb: SelectQueryBuilder<T>,
-        metadata: EntityMetadata,
+        repository: Repository<T>,
         info: GraphQLResolveInfo,
     ): Promise<T[]> {
-        return ElatedRepository.generateQueryBuilder<T>(qb, metadata, info).getMany();
+        return ElatedRepository.generateQueryBuilder<T>(repository, info).getMany();
     }
 
     /**
      * Finds one instance of entity
-     * @param qb
-     * @param metadata
+     * @param repository
      * @param info
      */
     public static async findOne<T>(
-        qb: SelectQueryBuilder<T>,
-        metadata: EntityMetadata,
+        repository: Repository<T>,
         info: GraphQLResolveInfo,
     ): Promise<T | undefined> {
-        return ElatedRepository.generateQueryBuilder<T>(qb, metadata, info).getOne();
+        return ElatedRepository.generateQueryBuilder<T>(repository, info).getOne();
     }
 }
