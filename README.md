@@ -53,7 +53,7 @@ A solution had been posted by [david-eos](https://github.com/david-eos), but it 
 
 ## Notes
 
-Currently, this implementation does not have support for arguments, meaning as of v1.0.2 this merely returns all items in your collection and normalizes the relationships within the query 
+Currently, this implementation does not have support for arguments, meaning as of v1.0.3 this merely returns all items in your collection and normalizes the relationships within the query 
 
 
 ## Getting Started
