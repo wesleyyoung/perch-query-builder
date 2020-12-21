@@ -1,5 +1,5 @@
 <br />
-<p style="text-align: center">
+<p align="center">
   <a href="https://github.com/wesleyyoung/perch-query-builder">
     <img src="https://github.com/wesleyyoung/perch-query-builder/imgs/perch.png" alt="Logo" width="80" height="80">
   </a>
