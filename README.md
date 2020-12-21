@@ -74,7 +74,7 @@ npm i --save perch-query-builder@latest
     description: `Generic Collection Query For Books`,
     nullable: true,
 })
-protected async getAllBooks(
+async getAllBooks(
     @Context() ctx,
     @Info() info: GraphQLResolveInfo,
 ): Promise<Book[]> {
