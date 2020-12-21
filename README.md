@@ -1,7 +1,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/wesleyyoung/perch-query-builder">
-    <img src="https://github.com/wesleyyoung/perch-query-builder/blob/main/imgs/perch.png" alt="Logo" width="80" height="80">
+    <img src="https://github.com/wesleyyoung/perch-query-builder/blob/main/imgs/perch.png" alt="Logo" width="120" height="120">
   </a>
 </p>
 <h3 align="center">Perch Query Builder</h3>
