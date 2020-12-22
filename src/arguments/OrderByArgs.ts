@@ -8,8 +8,8 @@ import {ArgsType, Field} from "@nestjs/graphql";
 @ArgsType()
 export class OrderByArgs {
     @Field(type => String, {nullable: true})
-    $orderDescBy: string;
+    __orderDescBy: string;
 
     @Field(type => String, {nullable: true})
-    $orderAscBy: string;
+    __orderAscBy: string;
 }

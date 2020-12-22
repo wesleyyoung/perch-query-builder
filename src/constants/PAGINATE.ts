@@ -1,6 +1,6 @@
 export const PAGINATE = {
     // first: '$first',
     // last: '$last',
-    limit: '$limit',
-    offset: '$offset',
+    limit: '__limit',
+    offset: '__offset',
 };
