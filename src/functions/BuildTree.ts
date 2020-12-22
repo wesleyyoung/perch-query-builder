@@ -20,7 +20,7 @@ export function buildTree<T>(
     const fieldNodes = selectionsToFields(selections, info);
 
     // For each field node
-    fieldNodes.forEach((field) => {
+    fieldNodes.forEach((field: FieldNode) => {
 
         const name = field.name.value;
 

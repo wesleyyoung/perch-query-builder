@@ -16,7 +16,7 @@ export function buildQueryRecursively<T>(
     alias: string,
     metadata: EntityMetadata
 ) {
-    const paginate = tree.properties.options.paginate;
+    const options = tree.properties.options;
 
     // Firstly, we list all selected fields at this level of the query tree
     const selectedFields = tree.fields
@@ -33,9 +33,9 @@ export function buildQueryRecursively<T>(
     qb.addSelect(selectedFields);
 
     // We add order options
-    Object.keys(tree.properties.options.order)
+    Object.keys(options.order)
         .forEach((key: string) => {
-            qb.addOrderBy(alias + "." + key, tree.properties.options.order[key]);
+            qb.addOrderBy(alias + "." + key, options.order[key]);
         });
 
     // We add args filters
@@ -44,24 +44,26 @@ export function buildQueryRecursively<T>(
             qb.andWhere(alias + "." + key + " = :" + key, {[`${key}`]: tree.properties.args[key]});
         });
 
-    if (paginate.offset) {
-        qb.skip(paginate.offset);
+    if (options.paginate.offset) {
+        qb.skip(options.paginate.offset);
     }
 
-    if (paginate.limit) {
-        qb.take(paginate.limit);
+    if (options.paginate.limit) {
+        qb.take(options.paginate.limit);
     }
 
     // For each asked relation
     tree.fields
         .filter((field: GraphQLQueryTree<T>) => field.isRelation())
         .forEach((relationTree: GraphQLQueryTree<T>) => {
-
             const relation: RelationMetadata = metadata.findRelationWithPropertyPath(relationTree.name);
 
             // If the relation query tree is asking for exists, we join it recursively
             if (relation) {
-                const relationAlias = qb.connection.namingStrategy.eagerJoinRelationAlias(alias, relation.propertyPath);
+                // We append _perch to avoid duplicate alias names when using joins with pagination
+                const relationAlias = qb.connection
+                    .namingStrategy
+                    .eagerJoinRelationAlias(alias, relation.propertyPath) + '_perch';
 
                 qb.leftJoinAndSelect(alias + "." + relation.propertyPath, relationAlias);
 
