@@ -63,9 +63,9 @@ export function buildQueryRecursively<T>(
                 // We append _perch to avoid duplicate alias names when using joins with pagination
                 const relationAlias = qb.connection
                     .namingStrategy
-                    .eagerJoinRelationAlias(alias, relation.propertyPath) + '_perch';
+                    .eagerJoinRelationAlias(alias, relation.propertyPath);
 
-                qb.leftJoinAndSelect(alias + "." + relation.propertyPath, relationAlias);
+                qb.leftJoin(alias + "." + relation.propertyPath, relationAlias);
 
                 buildQueryRecursively(relationTree, qb, relationAlias, relation.inverseEntityMetadata);
             }
