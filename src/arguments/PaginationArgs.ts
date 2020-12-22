@@ -6,14 +6,14 @@ import {ArgsType, Field, Int} from "@nestjs/graphql";
 @ArgsType()
 export class PaginationArgs {
     // @Field(type => Int, {nullable: true})
-    // __first: number;
+    // _first: number;
 
     // @Field(type => Int, {nullable: true})
-    // __last: number;
+    // _last: number;
 
     @Field(type => Int, {nullable: true})
-    __limit: number;
+    _limit: number;
 
     @Field(type => Int, {nullable: true})
-    __offset: number;
+    _offset: number;
 }

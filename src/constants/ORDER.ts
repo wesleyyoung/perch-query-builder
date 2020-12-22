@@ -3,6 +3,6 @@ import {ASC, DESC} from "./";
 export const ORDER = {
     ascend: ASC,
     descend: DESC,
-    ascend_arg: '__orderAscBy',
-    descend_arg: '__orderDescBy',
+    ascend_arg: '_orderAscBy',
+    descend_arg: '_orderDescBy',
 };
