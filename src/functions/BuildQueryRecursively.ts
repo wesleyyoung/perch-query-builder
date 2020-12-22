@@ -47,26 +47,15 @@ export function buildQueryRecursively<T>(
         .forEach(([opt, value]) => {
             switch (opt) {
                 case PAGINATE.offset:
-                    qb.offset(value);
+                    qb.skip(value);
                     break;
                 case PAGINATE.limit:
-                    qb.limit(value);
+                    qb.take(value);
                     break;
                 default:
                     break;
             }
-        })
-
-    /**
-     * Pagination
-     */
-    if (tree.properties.options.paginate.limit) {
-        qb.limit(tree.properties.options.paginate.limit);
-    }
-
-    if (tree.properties.options.paginate.offset) {
-        qb.offset(tree.properties.options.paginate.limit);
-    }
+        });
 
     // For each asked relation
     tree.fields
