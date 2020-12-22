@@ -1,7 +1,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/wesleyyoung/perch-query-builder">
-    <img src="https://github.com/wesleyyoung/perch-query-builder/blob/main/imgs/perch.png" alt="Logo" width="120" height="120">
+    <img src="https://i.imgur.com/EjPye2m.png" alt="Logo" width="120" height="120">
   </a>
 </p>
 <h3 align="center">Perch Query Builder</h3>
@@ -111,7 +111,7 @@ Contributions are what make the open source community such an amazing place to b
 
 ## Acknowledgements
 
-Much of the credit goes to [david-eos](https://github.com/david-eos) for writing the core functionality.
+Credit to [david-eos](https://github.com/david-eos) for writing the base functionality.
 
 ## License
 

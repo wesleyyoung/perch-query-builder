@@ -1,6 +1,6 @@
 {
     "name": "perch-query-builder",
-    "version": "1.1.6",
+    "version": "1.1.7",
     "description": "Dynamically build TypeORM queries based on GraphQL queries for NestJS and TypeORM",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
