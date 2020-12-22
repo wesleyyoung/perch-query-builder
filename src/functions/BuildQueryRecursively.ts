@@ -1,4 +1,4 @@
-import {GraphQLQueryTree} from "../";
+import {GraphQLQueryTree, PAGINATE} from "../";
 import {RelationMetadata} from "typeorm/metadata/RelationMetadata";
 import {EntityMetadata, SelectQueryBuilder} from "typeorm";
 
@@ -41,7 +41,32 @@ export function buildQueryRecursively<T>(
     Object.keys(tree.properties.args)
         .forEach((key: string) => {
             qb.andWhere(alias + "." + key + " = :" + key, {[`${key}`]: tree.properties.args[key]});
-        });
+        })
+
+    Object.entries(tree.properties.options.paginate)
+        .forEach(([opt, value]) => {
+            switch (opt) {
+                case PAGINATE.offset:
+                    qb.offset(value);
+                    break;
+                case PAGINATE.limit:
+                    qb.limit(value);
+                    break;
+                default:
+                    break;
+            }
+        })
+
+    /**
+     * Pagination
+     */
+    if (tree.properties.options.paginate.limit) {
+        qb.limit(tree.properties.options.paginate.limit);
+    }
+
+    if (tree.properties.options.paginate.offset) {
+        qb.offset(tree.properties.options.paginate.limit);
+    }
 
     // For each asked relation
     tree.fields

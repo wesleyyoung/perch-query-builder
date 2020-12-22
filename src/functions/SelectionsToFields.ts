@@ -1,4 +1,6 @@
 import {FieldNode, GraphQLResolveInfo, SelectionNode} from "graphql";
+import {Field, InlineFragment} from "../constants";
+import {FragmentSpread} from "../constants/FragmentSpread";
 
 /**
  * @description Convert selection nodes into field nodes
@@ -14,14 +16,14 @@ export function selectionsToFields(
 
     selections.forEach((sel: SelectionNode) => {
         switch (sel.kind) {
-            case "Field":
+            case Field:
                 fields.push(sel);
                 break;
-            case "FragmentSpread":
+            case FragmentSpread:
                 const fragment = info.fragments[sel.name.value];
                 fields.push.apply(fields, selectionsToFields(fragment.selectionSet.selections, info));
                 break;
-            case "InlineFragment":
+            case InlineFragment:
                 fields.push.apply(fields, selectionsToFields(sel.selectionSet.selections, info));
                 break
             default:

@@ -1,6 +1,6 @@
 {
     "name": "perch-query-builder",
-    "version": "1.0.4",
+    "version": "1.1.0",
     "description": "Dynamically build TypeORM queries based on GraphQL queries for NestJS and TypeORM",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -21,10 +21,12 @@
         "typescript": "^4.1.3"
     },
     "dependencies": {
+        "@nestjs/graphql": "^7.0.0",
         "graphql": "^15.0.0",
         "typeorm": "^0.2.25"
     },
     "resolutions": {
+        "@nestjs/graphql": "^7.0.0",
         "graphql": "^15.0.0",
         "typeorm": "^0.2.25"
     }
