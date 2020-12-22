@@ -16,6 +16,7 @@ export function buildQueryRecursively<T>(
     alias: string,
     metadata: EntityMetadata
 ) {
+    const paginate = tree.properties.options.paginate;
 
     // Firstly, we list all selected fields at this level of the query tree
     const selectedFields = tree.fields
@@ -41,21 +42,15 @@ export function buildQueryRecursively<T>(
     Object.keys(tree.properties.args)
         .forEach((key: string) => {
             qb.andWhere(alias + "." + key + " = :" + key, {[`${key}`]: tree.properties.args[key]});
-        })
-
-    Object.entries(tree.properties.options.paginate)
-        .forEach(([opt, value]) => {
-            switch (opt) {
-                case PAGINATE.offset:
-                    qb.skip(value);
-                    break;
-                case PAGINATE.limit:
-                    qb.take(value);
-                    break;
-                default:
-                    break;
-            }
         });
+
+    if (paginate.offset) {
+        qb.skip(paginate.offset);
+    }
+
+    if (paginate.limit) {
+        qb.take(paginate.limit);
+    }
 
     // For each asked relation
     tree.fields
