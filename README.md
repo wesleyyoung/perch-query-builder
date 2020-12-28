@@ -32,7 +32,14 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#use-inside-your-resolver">Usage</a></li>
+    <li>
+      <a href="#usage">Usage</a>
+      <ul>
+        <li><a href="#use-inside-your-resolver">Use inside your resolver</a></li>
+        <li><a href="#sorting">Sorting</a></li>
+        <li><a href="#pagination">Pagination</a></li>
+      </ul>
+    </li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -60,6 +67,8 @@ This plugin is light-weight and easy to install and use.
 ```sh
 npm i --save perch-query-builder@latest
 ```
+
+# Usage
 
 ### Use inside your resolver
 
@@ -91,6 +100,84 @@ export class BookResolver {
     ): Promise<Book[]> {
         // Simply pass your entity's repository, and the GraphQLResolve Info
         return await PerchQueryBuilder.find<Book>(this.bookRepository, info);
+    }
+}
+```
+
+## Sorting
+
+In order to add the ability to sort results by a given property, import the `OrderByArgs` argument class and declare it as an argument in your resolver  
+
+| option | type | description |
+| :---: | :---: | :---: |
+| _orderAscBy | string | Sorts the results as ascending from the value given |
+| _orderDescBy | string | Sorts the results as descending from the value given |
+
+```TS
+// rest of imports...
+import {OrderByArgs} from "perch-query-builder";
+
+// rest of resolver class...
+    async queryBooks(
+        @Context() ctx,
+        @Args() args: BookArgs,
+        // It is passed along side your other arguments
+        @Args() orderByArgs: OrderByArgs,
+        @Info() info: GraphQLResolveInfo,
+    ): Promise<Book[]> {
+        // There is nothing else to do, since OrderByArgs is only present to satisfy strict argument declaration requirements
+        return await PerchQueryBuilder.find<Book>(this.bookRepository, info);
+    }
+// rest of resolver class...
+```
+
+Us in your query
+```graphql
+{
+    # Return Books sorted by title ascending
+    Book(_orderAscBy: "title") {
+        id
+        title
+    }
+}
+```
+
+### Pagination
+
+Pagination is simple, though in a future feature "cursor" based pagination will be available as described in the [GraphQL website](https://graphql.org/learn/pagination/) 
+
+| option | type | description |
+| :---: | :---: | :---: |
+| _limit | integer | Sets the max results to return, maps to the TypeORM `SelectQueryBuilder<T>.take(number)` method |
+| _offset | integer | Sets the number of entities to skip before returning your query, maps to the TypeORM `SelectQueryBuilder<T>.skip(number)` method |
+
+In order to add pagination to your resolver, add the `PaginationArgs` argument class and declare it as an argument in your resolver
+
+```TS
+// rest of imports...
+import {PaginationArgs} from "perch-query-builder";
+
+// rest of resolver class...
+    async queryBooks(
+        @Context() ctx,
+        @Args() args: BookArgs,
+        // It is passed along side your other arguments
+        @Args() paginationArgs: PaginationArgs,
+        @Info() info: GraphQLResolveInfo,
+    ): Promise<Book[]> {
+        // There is nothing else to do, since PaginationArgs is only present to satisfy strict argument declaration requirements
+        return await PerchQueryBuilder.find<Book>(this.bookRepository, info);
+    }
+// rest of resolver class...
+```
+
+Us in your query
+```graphql
+{
+    # Return only 5 Books starting from the 10th book
+    Book(_limit: 5, _offset: 10) {
+        id
+        title
     }
 }
 ```
