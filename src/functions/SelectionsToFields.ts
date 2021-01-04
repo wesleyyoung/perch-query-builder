@@ -1,6 +1,6 @@
 import {FieldNode, GraphQLResolveInfo, SelectionNode} from "graphql";
 import {Field, InlineFragment} from "../constants";
-import {FragmentSpread} from "../constants/FragmentSpread";
+import {FragmentSpread} from "../constants";
 
 /**
  * @description Convert selection nodes into field nodes
