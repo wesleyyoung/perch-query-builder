@@ -6,7 +6,7 @@
 </p>
 <h3 align="center">Perch Query Builder</h3>
 <p align="center">
-    Dynamically build TypeORM queries based on GraphQL queries for NestJS and TypeORM
+    Dynamically build TypeORM queries based on GraphQL queries for TypeORM
     <br />
     <br />
     <a href="https://github.com/wesleyyoung/perch-query-builder/issues">Report Bug</a>
@@ -73,9 +73,9 @@ npm i --save perch-query-builder@latest
 ### Use inside your resolver
 
 ```TS
-import {Args, Context, Info, Query, Resolver} from '@nestjs/graphql';
+import {Args, Context, Info, Query, Resolver} from 'graphql';
 import {Repository} from 'typeorm';
-import {InjectRepository} from "@nestjs/typeorm";
+import {InjectRepository} from "typeorm";
 import {PerchQueryBuilder} from 'perch-query-builder';
 import {BookArgs} from '../args';
 import {Book} from '../entities';

@@ -1,4 +1,4 @@
-import {ArgsType, Field} from "@nestjs/graphql";
+import {ArgsType, Field} from "type-graphql";
 
 /**
  * @class OrderByArgs
