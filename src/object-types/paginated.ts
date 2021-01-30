@@ -2,10 +2,22 @@ import {Field, Int, ObjectType} from "@nestjs/graphql";
 import {Type} from "../types";
 import {PageInfo} from "./page-info";
 
-export function Paginated<T>(classRef: Type<T>): any {
+export declare class GenericEdgeType<T> {
+    cursor: string;
+    node: T;
+}
+
+export declare abstract class GenericConnectionType<T> {
+    edges: GenericEdgeType<T>[];
+    nodes: T[];
+    totalCount: number;
+    pageInfo: PageInfo;
+}
+
+export function Paginated<T>(classRef: Type<T>): GenericConnectionType<T> {
 
     @ObjectType(`${classRef.name}Edge`)
-    abstract class EdgeType {
+    abstract class EdgeType implements GenericEdgeType<T> {
         @Field((type: void | undefined) => String)
         cursor: string;
 
@@ -14,7 +26,7 @@ export function Paginated<T>(classRef: Type<T>): any {
     }
 
     @ObjectType({isAbstract: true})
-    abstract class PaginatedType {
+    abstract class ConnectionType implements GenericConnectionType<T>{
         @Field((type: void | undefined) => [EdgeType], {nullable: true})
         edges: EdgeType[];
 
@@ -28,5 +40,5 @@ export function Paginated<T>(classRef: Type<T>): any {
         pageInfo: PageInfo;
     }
 
-    return PaginatedType;
+    return ConnectionType as unknown as GenericConnectionType<T>;
 }

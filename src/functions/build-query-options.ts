@@ -1,4 +1,4 @@
-import {DynamicQueryOptions, ORDER, PAGINATE, QueryOrder} from "../";
+import {DynamicQueryOptions, ORDER, PAGINATE, QueryOrder, Slice} from "../";
 
 /**
  * @description Builds DynamicQueryOptions
@@ -9,9 +9,20 @@ export function buildQueryOptions<T>(queryOptions: { [key: string]: any } = {}):
     const options: DynamicQueryOptions<T> = {};
     const order: { [P in keyof T]?: QueryOrder} = {};
     const paginate: { [P in keyof typeof PAGINATE]?: number; } = {};
+    const connection: { slice?: { [P in keyof typeof Slice]?: string | number; } } = {};
 
     Object.entries(queryOptions)
         .forEach(([opt, value]) => {
+
+            if (Slice[value]) {
+                connection.slice = {
+                    ...connection?.slice,
+                    [Slice[value]]: value as number
+                }
+
+                return;
+            }
+
             switch (opt) {
                 case ORDER.descend_arg:
                     order[value] = ORDER.descend;
@@ -19,20 +30,8 @@ export function buildQueryOptions<T>(queryOptions: { [key: string]: any } = {}):
                 case ORDER.ascend_arg:
                     order[value] = ORDER.ascend;
                     break;
-                // case PAGINATE.first:
-                //     paginate.first = value;
-                //     delete paginate.last;
-                //     delete paginate.limit;
-                //     break;
-                // case PAGINATE.last:
-                //     paginate.last = value;
-                //     delete paginate.first;
-                //     delete paginate.limit;
-                //     break;
                 case PAGINATE.limit:
                     paginate.limit = value;
-                    // delete paginate.first;
-                    // delete paginate.last;
                     break;
                 case PAGINATE.offset:
                     paginate.offset = value;
