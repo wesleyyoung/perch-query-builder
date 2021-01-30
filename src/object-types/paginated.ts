@@ -12,6 +12,21 @@ export function Paginated<T>(classRef: Type<T>): any {
         node: T;
     }
 
+    @ObjectType(`${classRef.name}PageInfo`)
+    abstract class PageInfo {
+        @Field((type: void | undefined) => Boolean)
+        hasNextPage: boolean;
+
+        @Field((type: void | undefined) => Boolean)
+        hasPreviousPage: boolean;
+
+        @Field((type: void | undefined) => String)
+        startCursor: string;
+
+        @Field((type: void | undefined) => String)
+        endCursor: string;
+    }
+
     @ObjectType({isAbstract: true})
     abstract class PaginatedType {
         @Field((type: void | undefined) => [EdgeType], {nullable: true})
@@ -23,8 +38,8 @@ export function Paginated<T>(classRef: Type<T>): any {
         @Field((type: void | undefined) => Int)
         totalCount: number;
 
-        @Field()
-        hasNextPage: boolean;
+        @Field((type: void | undefined) => PageInfo, {nullable: true})
+        pageInfo: PageInfo;
     }
 
     return PaginatedType;
