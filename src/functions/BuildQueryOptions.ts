@@ -29,6 +29,7 @@ export function buildQueryOptions<T>(queryOptions: { [key: string]: any } = {}):
                 //     delete paginate.first;
                 //     delete paginate.limit;
                 //     break;
+
                 case PAGINATE.limit:
                     paginate.limit = value;
                     // delete paginate.first;

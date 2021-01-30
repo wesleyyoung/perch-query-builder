@@ -26,22 +26,23 @@ export function buildQueryRecursively<T>(
     // Secondly, we list all fields used in arguments
     const argFields = Object
         .keys(tree.properties.args)
-        .map((arg: string) => alias + "." + arg);
+        .map((arg: string) => `${alias}.${arg}`);
 
     // We select all of above
-    qb.addSelect(argFields);
-    qb.addSelect(selectedFields);
+    qb.addSelect([...argFields, ...selectedFields]);
 
     // We add order options
     Object.keys(options.order)
         .forEach((key: string) => {
-            qb.addOrderBy(alias + "." + key, options.order[key]);
+            qb.addOrderBy(`${alias}.${key}`, options.order[key]);
         });
 
     // We add args filters
-    Object.keys(tree.properties.args)
-        .forEach((key: string) => {
-            qb.andWhere(alias + "." + key + " = :" + key, {[`${key}`]: tree.properties.args[key]});
+    Object.entries(tree.properties.args)
+        .forEach(([key, value]: [key: string, value: string]) => {
+            qb.andWhere(`${alias}.${key} = :${key}`, {
+                [key]: value
+            });
         });
 
     if (options.paginate.offset) {
@@ -65,7 +66,7 @@ export function buildQueryRecursively<T>(
                     .namingStrategy
                     .eagerJoinRelationAlias(alias, relation.propertyPath);
 
-                qb.leftJoin(alias + "." + relation.propertyPath, relationAlias);
+                qb.leftJoin(`${alias}.${relation.propertyPath}`, relationAlias);
 
                 buildQueryRecursively(relationTree, qb, relationAlias, relation.inverseEntityMetadata);
             }

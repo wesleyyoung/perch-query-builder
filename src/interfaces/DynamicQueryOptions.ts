@@ -1,5 +1,6 @@
-import {QueryOrder} from "../types";
+import {EqualityOperator, QueryOrder} from "../types";
 import {PAGINATE} from "../constants";
+import {SearchOperator} from "../types/search-operator";
 
 /**
  * @interface DynamicQueryOptions
@@ -12,4 +13,8 @@ export interface DynamicQueryOptions<T> {
     order?: {
         [P in keyof T]?: QueryOrder;
     };
+    search?: {
+        equality?: EqualityOperator;
+        operator?: SearchOperator;
+    }
 }
