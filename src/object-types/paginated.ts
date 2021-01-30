@@ -1,5 +1,6 @@
 import {Field, Int, ObjectType} from "@nestjs/graphql";
 import {Type} from "../types";
+import {PageInfo} from "./page-info";
 
 export function Paginated<T>(classRef: Type<T>): any {
 
@@ -10,21 +11,6 @@ export function Paginated<T>(classRef: Type<T>): any {
 
         @Field((type: void | undefined) => classRef)
         node: T;
-    }
-
-    @ObjectType(`${classRef.name}PageInfo`)
-    abstract class PageInfo {
-        @Field((type: void | undefined) => Boolean)
-        hasNextPage: boolean;
-
-        @Field((type: void | undefined) => Boolean)
-        hasPreviousPage: boolean;
-
-        @Field((type: void | undefined) => String)
-        startCursor: string;
-
-        @Field((type: void | undefined) => String)
-        endCursor: string;
     }
 
     @ObjectType({isAbstract: true})
