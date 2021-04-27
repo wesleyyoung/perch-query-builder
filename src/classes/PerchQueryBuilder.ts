@@ -23,6 +23,10 @@ export class PerchQueryBuilder {
 
         const tree = GraphQLQueryTree.createTree(info);
 
+        const validFields = tree.fields.filter(item => repository.metadata.propertiesMap[item.name] || item.fields.length > 0);
+
+        tree.fields = validFields;
+
         qb = qb || repository.createQueryBuilder();
 
         qb.select([]);
