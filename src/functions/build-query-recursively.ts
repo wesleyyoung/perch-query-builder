@@ -41,7 +41,11 @@ export function buildQueryRecursively<T>(
     // We add args filters
     Object.keys(tree.properties.args)
         .forEach((key: string) => {
-            qb.andWhere(alias + "." + key + " = :" + key, {[`${key}`]: tree.properties.args[key]});
+            if(Array.isArray(tree.properties.args[key])) {
+                qb.andWhere(alias + "." + key + " IN (:" + key + ")", { [`${key}`]: tree.properties.args[key] });
+            } else {
+                qb.andWhere(alias + "." + key + " = :" + key, { [`${key}`]: tree.properties.args[key] });
+            }
         });
 
     if (options.paginate.offset) {
