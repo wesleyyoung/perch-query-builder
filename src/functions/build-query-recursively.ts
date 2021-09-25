@@ -1,6 +1,7 @@
 import {GraphQLQueryTree, PAGINATE} from "../";
 import {RelationMetadata} from "typeorm/metadata/RelationMetadata";
 import {EntityMetadata, SelectQueryBuilder} from "typeorm";
+import {ColumnMetadata} from "typeorm/metadata/ColumnMetadata";
 
 /**
  * @description Builds a TypeORM query with the queryBuilder recursively, joining every requested relation,
@@ -28,9 +29,14 @@ export function buildQueryRecursively<T>(
         .keys(tree.properties.args)
         .map((arg: string) => alias + "." + arg);
 
+    // Thirdly, we select all primary keys, to make sure that joined relations are not null
+    const primaryFields = metadata.primaryColumns
+        .map((ref: ColumnMetadata) => alias + "." + ref.propertyPath)
+
     // We select all of above
     qb.addSelect(argFields);
     qb.addSelect(selectedFields);
+    qb.addSelect(primaryFields)
 
     // We add order options
     Object.keys(options.order)
