@@ -21,6 +21,7 @@ export function buildQueryRecursively<T>(
     // Firstly, we list all selected fields at this level of the query tree
     const selectedFields = tree.fields
         .filter((field: GraphQLQueryTree<T>) => !field.isRelation())
+        .filter((field: GraphQLQueryTree<T>) => metadata.propertiesMap[field.name] || field.fields.length > 0)
         .map((field: GraphQLQueryTree<T>) => alias + "." + field.name);
 
     // Secondly, we list all fields used in arguments
