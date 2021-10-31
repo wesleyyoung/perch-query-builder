@@ -1,5 +1,6 @@
 import {GraphQLResolveInfo} from "graphql";
 import {buildQueryTree, GraphQLQueryTreeProperties} from "../";
+import {EntityMetadata} from "typeorm";
 
 
 /**
@@ -50,10 +51,10 @@ export class GraphQLQueryTree<T> {
     }
 
     /**
-     * @description Check if this field is a relation
+     * @description Check if this field is a relation in metadata
      */
-    public isRelation(): boolean {
-        return !!(this.fields && this.fields.length);
+    public isRelationIn(metadata: EntityMetadata): boolean {
+        return !!metadata.ownRelations.find((relation) => relation.propertyName === this.name);
     }
 
     /**
