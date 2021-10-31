@@ -1,6 +1,7 @@
 import {Repository, SelectQueryBuilder} from "typeorm";
 import {buildQueryRecursively, GraphQLQueryTree} from "../";
 import {GraphQLResolveInfo} from "graphql";
+import {QueryBuilderOptions} from "../interfaces";
 
 /**
  * @class PerchQueryBuilder
@@ -12,22 +13,27 @@ export class PerchQueryBuilder {
     /**
      * Generates TypeORM queryBuilder based on GraphQLQueryTree args, relations & options
      * @param repository
-     * @param qb
      * @param info
+     * @param options
      */
     public static generateQueryBuilder<T>(
         repository: Repository<T>,
         info: GraphQLResolveInfo,
-        qb?: SelectQueryBuilder<T>,
+        options?: QueryBuilderOptions<T>,
     ): SelectQueryBuilder<T> {
 
-        const tree = GraphQLQueryTree.createTree(info);
+        let tree = GraphQLQueryTree.createTree(info);
+        if (options?.rootField) {
+            options.rootField.split(".").forEach((fieldName) => {
+                tree = tree.getField(fieldName);
+            });
+        }
 
         const validFields = tree.fields.filter(item => repository.metadata.propertiesMap[item.name] || item.fields.length > 0);
 
         tree.fields = validFields;
 
-        qb = qb || repository.createQueryBuilder();
+        const qb = options?.qb || repository.createQueryBuilder();
 
         qb.select([]);
 
