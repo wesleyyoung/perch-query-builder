@@ -1,4 +1,4 @@
-import {DynamicQueryOptions, ORDER, PAGINATE, QueryOrder, Slice} from "../";
+import {DynamicQueryOptions, isPrimitive, ORDER, PAGINATE, QueryOrder, Slice} from "../";
 
 /**
  * @description Builds DynamicQueryOptions
@@ -13,6 +13,10 @@ export function buildQueryOptions<T>(queryOptions: { [key: string]: any } = {}):
 
     Object.entries(queryOptions)
         .forEach(([opt, value]) => {
+
+            if (!isPrimitive(value)) {
+                return;
+            }
 
             if (Slice[value]) {
                 connection.slice = {
