@@ -5,3 +5,4 @@ export * from './build-query-tree';
 export * from './build-tree';
 export * from './get-type';
 export * from './selections-to-fields';
+export * from './is-primitive';
