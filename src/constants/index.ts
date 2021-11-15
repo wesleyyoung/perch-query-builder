@@ -5,4 +5,5 @@ export * from './PAGINATE';
 export * from './Field';
 export * from './fragment-spread';
 export * from './inline-fragment';
+export * from './select-always';
 export * from './slice';
